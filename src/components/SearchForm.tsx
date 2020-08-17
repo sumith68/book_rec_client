@@ -1,21 +1,30 @@
 import React from "react";
 
-let SearchForm = () => {
+type SearchProps = {
+  search: string;
+  onSearchChange: Function;
+  onSearchSubmit: Function;
+};
+
+let SearchForm: React.FC<SearchProps> = ({
+  search,
+  onSearchChange,
+  onSearchSubmit,
+}) => {
   return (
     <div>
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          console.log("Submitting...");
+          onSearchSubmit();
         }}
       >
         <label>
           Search:
           <input
             type="text"
-            onChange={() => {
-              console.log("On Change...");
-            }}
+            value={search}
+            onChange={(event) => onSearchChange(event.target.value)}
           ></input>
         </label>
         <input type="submit" value="submit" />
