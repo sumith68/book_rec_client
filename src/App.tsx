@@ -20,7 +20,7 @@ function App() {
         parseString(response, (err: any, result: any) => {
           let searchResults =
             result.GoodreadsResponse.search[0].results[0].work;
-          setBookDetails(searchResults);
+          setBookDetails(searchResults.slice(0, 5));
         });
       });
   };
