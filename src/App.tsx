@@ -26,28 +26,39 @@ function App() {
   };
 
   return (
-    <div>
-      <div>
-        <SearchForm
-          search={search}
-          onSearchChange={onSearchChange}
-          onSearchSubmit={onSearchSubmit}
-        />
+    <div className="w-full flex">
+      <div className="flex flex-col m-5 w-1/2">
+        <div className="mb-5">
+          <SearchForm
+            search={search}
+            onSearchChange={onSearchChange}
+            onSearchSubmit={onSearchSubmit}
+          />
+        </div>
+        <div className="flex flex-col space-y-4">
+          {bookDetails.map((book: any, id: number) => (
+            <div key={id} className="border border-blue-200 p-2">
+              <div className="flex">
+                <img
+                  className="mr-2"
+                  src={book.best_book[0].small_image_url[0]}
+                  alt={book.best_book[0].title[0]}
+                />
+                <div className="flex flex-col">
+                  <div>
+                    <span className="font-bold">Title: </span>
+                    {book.best_book[0].title[0]}
+                  </div>
+                  <div>
+                    <span className="font-bold">Author: </span>{" "}
+                    {book.best_book[0].author[0].name}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-
-      {bookDetails.map((book: any) => (
-        <ul>
-          <li>{book.best_book[0].title[0]}</li>
-          <li>{book.best_book[0].author[0].name}</li>
-          <li>
-            <img
-              src={book.best_book[0].small_image_url[0]}
-              alt={book.best_book[0].title[0]}
-            />
-          </li>
-          <hr />
-        </ul>
-      ))}
     </div>
   );
 }
