@@ -31,7 +31,7 @@ let BookList: React.FC<ListProps> = ({
                 {book.best_book[0].title[0]}
               </div>
               <div>
-                <span className="font-bold">Author: </span>{" "}
+                <span className="font-bold">Author: </span>
                 {book.best_book[0].author[0].name}
               </div>
             </div>
