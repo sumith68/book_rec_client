@@ -1,10 +1,15 @@
 import React from "react";
 import SearchForm from "./components/SearchForm";
+import BookList from "./components/BookList";
 var parseString = require("xml2js").parseString;
 
 function App() {
   let [search, setSearch] = React.useState("");
   let [bookDetails, setBookDetails] = React.useState([]);
+  let [selectedState, setSeletedState] = React.useState({
+    selected: false,
+    selectedId: "",
+  });
 
   let onSearchChange = (value: string) => {
     setSearch((prevValue) => value);
@@ -25,6 +30,16 @@ function App() {
       });
   };
 
+  let handleSelected = (id: string) => {
+    setSeletedState({ selected: true, selectedId: id });
+  };
+
+  let selectedCss = (id: string) => {
+    return id !== selectedState.selectedId
+      ? "border-2 border-blue-200 p-2 mb-2"
+      : "border-2 border-red-900 p-2 mb-2";
+  };
+
   return (
     <div className="w-full flex">
       <div className="flex flex-col m-5 w-1/2">
@@ -36,27 +51,11 @@ function App() {
           />
         </div>
         <div className="flex flex-col space-y-4">
-          {bookDetails.map((book: any, id: number) => (
-            <div key={id} className="border border-blue-200 p-2">
-              <div className="flex">
-                <img
-                  className="mr-2"
-                  src={book.best_book[0].small_image_url[0]}
-                  alt={book.best_book[0].title[0]}
-                />
-                <div className="flex flex-col">
-                  <div>
-                    <span className="font-bold">Title: </span>
-                    {book.best_book[0].title[0]}
-                  </div>
-                  <div>
-                    <span className="font-bold">Author: </span>{" "}
-                    {book.best_book[0].author[0].name}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+          <BookList
+            bookDetails={bookDetails}
+            handleSelected={handleSelected}
+            selectedCss={selectedCss}
+          />
         </div>
       </div>
     </div>
