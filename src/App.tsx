@@ -4,14 +4,27 @@ import BookList from "./components/BookList";
 import SelectedBookDetails from "./components/SelectedBookDetails";
 var parseString = require("xml2js").parseString;
 
+interface BookInfo {
+  isbn: string;
+  isbn13: string;
+  imageUrl: string;
+  description: string;
+  similar_books: any;
+}
+
+interface Selected {
+  selected: boolean;
+  selectedId: string;
+}
+
 function App() {
-  let [search, setSearch] = React.useState("");
-  let [bookDetails, setBookDetails] = React.useState([]);
-  let [selectedState, setSeletedState] = React.useState({
+  let [search, setSearch] = React.useState<string>("");
+  let [bookDetails, setBookDetails] = React.useState<any>([]);
+  let [selectedState, setSeletedState] = React.useState<Selected>({
     selected: false,
     selectedId: "",
   });
-  let [bookDetailedInfo, setBookDetailedInfo] = React.useState({
+  let [bookDetailedInfo, setBookDetailedInfo] = React.useState<BookInfo>({
     isbn: "",
     isbn13: "",
     imageUrl: "",
