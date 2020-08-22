@@ -32,7 +32,7 @@ let SelectedBookDetails: React.FC<BookDetailsProps> = ({
           />
         </p>
       </div>
-
+      <div className="font-bold italic mb-2"> Recommendations </div>
       <div>
         {bookDetailedInfo.similar_books.map((similar_book: any, id: number) => (
           <div key={id} className="border-2 border-blue-200 p-2 mb-2">
