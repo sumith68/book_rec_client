@@ -17,6 +17,11 @@ interface Selected {
   selectedId: string;
 }
 
+interface copyClipboard {
+  isbn: boolean;
+  isbn13: boolean;
+}
+
 function App() {
   let [search, setSearch] = React.useState<string>("");
   let [bookDetails, setBookDetails] = React.useState<any>([]);
@@ -30,6 +35,11 @@ function App() {
     imageUrl: "",
     description: "",
     similar_books: [],
+  });
+
+  let [copySuccess, setCopySuccess] = React.useState<copyClipboard>({
+    isbn: false,
+    isbn13: false,
   });
 
   let onSearchChange = (value: string) => {
@@ -81,6 +91,12 @@ function App() {
       : "border-2 border-red-900 p-2 mb-2";
   };
 
+  let copyToClipboard = (event: any) => {
+    event.target.select();
+    setCopySuccess({ ...copySuccess, [event.target.name]: true });
+    document.execCommand("copy");
+  };
+
   return (
     <div className="w-full flex">
       <div className="flex flex-col m-5 w-1/2">
@@ -102,6 +118,8 @@ function App() {
       <div className="flex flex-col m-5 mt-20 w-1/2">
         <SelectedBookDetails
           selectedState={selectedState}
+          copySuccess={copySuccess}
+          copyToClipboard={copyToClipboard}
           bookDetailedInfo={bookDetailedInfo}
         />
       </div>

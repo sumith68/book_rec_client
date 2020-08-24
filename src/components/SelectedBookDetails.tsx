@@ -3,11 +3,15 @@ import React from "react";
 type BookDetailsProps = {
   selectedState: any;
   bookDetailedInfo: any;
+  copySuccess: any;
+  copyToClipboard: any;
 };
 
 let SelectedBookDetails: React.FC<BookDetailsProps> = ({
   selectedState,
   bookDetailedInfo,
+  copySuccess,
+  copyToClipboard,
 }) => {
   return selectedState.selected ? (
     <div>
@@ -16,11 +20,29 @@ let SelectedBookDetails: React.FC<BookDetailsProps> = ({
           <img className="mb-2 " src={bookDetailedInfo.imageUrl} alt="image" />
           <p>
             <span className="font-bold">ISBN: </span>
-            <span className="text-xs font-bold">{bookDetailedInfo.isbn}</span>
+            <input
+              type="text"
+              name="isbn"
+              className="text-xs font-bold"
+              onClick={(event) => copyToClipboard(event)}
+              value={bookDetailedInfo.isbn}
+            />
+            {copySuccess.isbn ? (
+              <div style={{ color: "green" }}>Copied!</div>
+            ) : null}
           </p>
           <p>
             <span className="font-bold">ISBN13: </span>
-            <span className="text-xs font-bold">{bookDetailedInfo.isbn13}</span>
+            <input
+              type="text"
+              name="isbn13"
+              className="text-xs font-bold"
+              onClick={(event) => copyToClipboard(event)}
+              value={bookDetailedInfo.isbn13}
+            />
+            {copySuccess.isbn13 ? (
+              <div style={{ color: "green" }}>Copied!</div>
+            ) : null}
           </p>
         </div>
         <p>
